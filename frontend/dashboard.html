@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Gestor de Tareas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body onload="obtenerTareas()">
+
+    <div class="login-container" style="width: 500px;">
+        <h2>Mis Tareas</h2>
+        
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input type="text" id="tituloTarea" placeholder="Escribe nueva tarea...">
+            <button onclick="agregarTarea()" style="width: 150px;">Guardar</button>
+        </div>
+
+        <ul id="listaTareas" style="text-align: left; padding: 0;">
+            </ul>
+
+        <hr>
+        <button onclick="cerrarSesion()" style="background: #ef4444;">Cerrar Sesión</button>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
