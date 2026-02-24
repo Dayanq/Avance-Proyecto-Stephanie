@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro - Gestor de Tareas</title>
-    <link rel="stylesheet" href="css/styles.css"> </head>
-<body>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="auth-page">
     <div class="login-container">
         <h2>Crear Cuenta</h2>
-        <div class="form-group">
-            <input type="text" id="nombre" placeholder="Nombre completo">
-        </div>
-        <div class="form-group">
-            <input type="email" id="email" placeholder="Correo (Tu ID)">
-        </div>
-        <div class="form-group">
-            <input type="password" id="password" placeholder="Contraseña">
-        </div>
-        <button onclick="registrar()">Registrarme</button>
-        <p id="mensaje"></p>
+        <input type="text" id="nombre" placeholder="Nombre completo">
+        <input type="email" id="email" placeholder="Correo (Tu ID)">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button onclick="registrar()" style="width: 100%;">Registrarme</button>
         <div class="footer-links">
-            <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+            <p>¿Ya tienes cuenta? <a href="index.html">Inicia sesión aquí</a></p>
         </div>
     </div>
     <script src="js/script.js"></script>

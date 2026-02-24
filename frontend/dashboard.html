@@ -2,24 +2,78 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Gestor de Tareas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - JobBoard</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body onload="obtenerTareas()">
-
-    <div class="login-container" style="width: 500px;">
-        <h2>Mis Tareas</h2>
-        
-        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-            <input type="text" id="tituloTarea" placeholder="Escribe nueva tarea...">
-            <button onclick="agregarTarea()" style="width: 150px;">Guardar</button>
+<body onload="inicializarDashboard()">
+    <div class="dashboard-container">
+        <div class="topbar">
+            <h1>JobBoard</h1>
+            <div style="display:flex; align-items:center; gap:15px;">
+                <span id="badgeRol" style="padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 0.8rem;">...</span>
+                <button class="btn-danger" onclick="cerrarSesion()">Salir</button>
+            </div>
         </div>
 
-        <ul id="listaTareas" style="text-align: left; padding: 0;">
+        <div class="card">
+            <h2>Vacantes Disponibles</h2>
+            
+            <div id="formNuevaTarea" style="display:none; flex-direction: column; gap:10px; margin-bottom:20px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <h3 style="margin-top:0; font-size: 1rem; color: #475569;">Publicar nueva vacante</h3>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="tituloTarea" placeholder="Nombre del puesto" style="flex: 2;">
+                    <input type="number" id="salarioTarea" placeholder="Salario $" style="flex: 1;">
+                    <button class="btn-success" onclick="agregarTarea()" style="white-space:nowrap; width: auto; padding: 0 20px;">+ Publicar</button>
+                </div>
+            </div>
+
+            <div id="seccionFiltros" style="margin-bottom: 20px; background: #f1f5f9; padding: 15px; border-radius: 8px; display: none; align-items: center; gap: 10px;">
+                <label style="font-weight: bold; color: #1e293b;">Filtrar por salario mínimo:</label>
+                <input type="number" id="filtroSalario" placeholder="Ej: 1000" style="width: 150px; padding: 8px;">
+                <button onclick="filtrarTareas()" style="background: #3b82f6; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Buscar</button>
+                <button onclick="limpiarFiltro()" style="background: #64748b; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">Limpiar</button>
+            </div>
+
+            <div id="selectorDivisa" style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                <label style="font-weight: bold; color: #475569;">Ver salarios en:</label>
+                <select id="divisaSeleccionada" onchange="cambiarDivisa()" 
+                        style="padding: 8px 12px; border-radius: 6px; border: 1px solid #e2e8f0; font-weight: bold;">
+                    <option value="MXN">🇲🇽 MXN</option>
+                    <option value="USD">🇺🇸 USD</option>
+                    <option value="EUR">🇪🇺 EUR</option>
+                    <option value="CAD">🇨🇦 CAD</option>
+                </select>
+                <span id="infoTasa" style="font-size: 0.8rem; color: #64748b;"></span>
+            </div>
+
+            <ul id="listaTareas" style="list-style: none; padding: 0;">
+                <li style="text-align:center; color:gray;">Cargando tareas...</li>
             </ul>
 
-        <hr>
-        <button onclick="cerrarSesion()" style="background: #ef4444;">Cerrar Sesión</button>
+            <div id="controlesPaginacion" style="margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 15px; border-top: 1px solid #eee; padding-top: 15px;">
+                <button id="btnAnterior" onclick="cambiarPagina(-1)" style="padding: 4px 10px; cursor: pointer; background: #e2e8f0; border: none; border-radius: 4px; font-size: 0.8rem;">&larr; Anterior</button>
+                <span id="numPagina" style="font-size: 0.85rem; color: #64748b; font-weight: bold;">Página 1</span>
+                <button id="btnSiguiente" onclick="cambiarPagina(1)" style="padding: 4px 10px; cursor: pointer; background: #e2e8f0; border: none; border-radius: 4px; font-size: 0.8rem;">Siguiente &rarr;</button>
+            </div>
+        </div>
+
+        <div class="card" id="seccionAdmin" style="display:none;">
+            <h2>Panel de Control de Usuarios</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <script src="js/script.js"></script>

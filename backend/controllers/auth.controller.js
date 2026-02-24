@@ -2,18 +2,15 @@ const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-// Función para REGISTRAR nuevos usuarios
+// Registrar nuevo usuario (siempre como 'user' por defecto)
 exports.register = async (req, res) => {
     const { nombre, email, password } = req.body;
-
     try {
-        // 1. Encriptar la contraseña (CORREGIDO: se encripta el password, no el email)
         const salt = await bcrypt.genSalt(10);
-        const hashedFileName = await bcrypt.hash(password, salt); // Cambié el nombre a hashedFileName o hashedPassword
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        // 2. Insertar en la base de datos
-        const query = 'INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)';
-        db.query(query, [nombre, email, hashedFileName], (err, result) => {
+        const query = 'INSERT INTO usuarios (nombre, email, password, role) VALUES (?, ?, ?, ?)';
+        db.query(query, [nombre, email, hashedPassword, 'user'], (err, result) => {
             if (err) {
                 if (err.code === 'ER_DUP_ENTRY') {
                     return res.status(400).json({ mensaje: "El correo ya está registrado" });
@@ -27,7 +24,7 @@ exports.register = async (req, res) => {
     }
 };
 
-// Función para INICIAR SESIÓN (Este está perfecto)
+// Login — ahora el token incluye el rol
 exports.login = (req, res) => {
     const { email, password } = req.body;
 
@@ -38,17 +35,17 @@ exports.login = (req, res) => {
 
         const usuario = results[0];
 
-        // Verificar contraseña
         const passwordCorrecto = await bcrypt.compare(password, usuario.password);
         if (!passwordCorrecto) return res.status(401).json({ mensaje: "Contraseña incorrecta" });
 
-        // Generar el TOKEN (JWT)
+        // ✅ Ahora el token lleva id Y role
         const token = jwt.sign(
-            { id: usuario.id }, 
-            process.env.JWT_SECRET, 
+            { id: usuario.id, role: usuario.role },
+            process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
 
-        res.json({ mensaje: "Login exitoso", token });
+        // Enviamos también el rol al frontend para que pueda usarlo directamente
+        res.json({ mensaje: "Login exitoso", token, role: usuario.role });
     });
 };

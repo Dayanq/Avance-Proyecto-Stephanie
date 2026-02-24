@@ -1,0 +1,551 @@
+/* ── Variables globales ── */
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-body: #f4f6f8;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --white: #ffffff;
+    --danger: #ef4444;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --blue: #3b82f6;
+    --border: #e2e8f0;
+}
+
+/* ── Reset y base ── */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* ── Páginas de autenticación ── */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-card {
+    background: var(--white);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.auth-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+    color: var(--text-main);
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.auth-footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.auth-footer a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ── Inputs ── */
+input, select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background: var(--white);
+    transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+/* ── Botones ── */
+button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s, transform 0.1s;
+    width: 100%;
+}
+
+button:hover:not(:disabled) {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-danger  { background: var(--danger); }
+.btn-success { background: var(--success); }
+.btn-yellow  { background: var(--warning); }
+.btn-green   { background: var(--success); }
+.btn-blue    { background: var(--blue); }
+.btn-gray    { background: var(--text-muted); }
+
+.btn-compact {
+    width: auto;
+    padding: 8px 16px;
+    white-space: nowrap;
+}
+
+/* ── Dashboard ── */
+.dashboard-container {
+    padding: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+}
+
+.topbar h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar .btn-danger {
+    width: auto;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+}
+
+/* ── Badges de rol ── */
+.badge-rol {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: white;
+}
+
+.badge-admin { background: #7c3aed; }
+.badge-user  { background: #3b82f6; }
+
+.badge-aplicado {
+    background: #94a3b8;
+    color: white;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* ── Cards ── */
+.card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.15rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+}
+
+/* ── Formulario nueva tarea ── */
+.form-nueva-tarea {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.form-nueva-tarea h3 {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.form-row input {
+    min-width: 120px;
+}
+
+/* ── Sección filtros ── */
+.seccion-filtros {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: #f1f5f9;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+}
+
+.seccion-filtros label {
+    font-weight: 600;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.seccion-filtros button,
+.seccion-filtros .btn-blue,
+.seccion-filtros .btn-gray {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+}
+
+/* ── Selector de divisas ── */
+.selector-divisa {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+}
+
+.selector-divisa label {
+    font-weight: 700;
+    color: #15803d;
+    white-space: nowrap;
+}
+
+.selector-divisa select {
+    width: auto;
+    padding: 7px 12px;
+    border-color: #86efac;
+    color: #15803d;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.info-tasa {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ── Lista de tareas ── */
+.lista-tareas {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    padding: 14px 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.task-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.task-info strong {
+    font-size: 1rem;
+}
+
+.task-info small {
+    color: var(--text-muted);
+}
+
+.salario {
+    color: #16a34a;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.task-acciones {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.task-acciones button {
+    width: auto;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+}
+
+/* ── Paginación ── */
+.controles-paginacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+    margin-top: 16px;
+}
+
+.btn-pag {
+    width: auto;
+    padding: 6px 14px;
+    background: #e2e8f0;
+    color: var(--text-main);
+    font-size: 0.82rem;
+    border-radius: 6px;
+}
+
+.btn-pag:hover:not(:disabled) {
+    background: #cbd5e1;
+}
+
+.num-pagina {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* ── Tabla de usuarios ── */
+.tabla-scroll {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+
+th {
+    background: #f8fafc;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+td select {
+    width: auto;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+/* ── Modal de edición ── */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 28px;
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.modal-btns {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-btns button {
+    flex: 1;
+}
+
+/* ── Utilidades ── */
+.error-msg {
+    color: var(--danger);
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    text-align: center;
+}
+
+.texto-centro {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 20px 0;
+}
+
+/* ── Responsividad ── */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 12px;
+    }
+
+    .topbar {
+        padding: 12px 16px;
+        border-radius: 10px;
+    }
+
+    .topbar h1 {
+        font-size: 1.1rem;
+    }
+
+    .topbar-right {
+        gap: 8px;
+    }
+
+    .badge-rol {
+        display: none; /* En móvil ocultamos el badge para ahorrar espacio */
+    }
+
+    .card {
+        padding: 16px;
+        border-radius: 10px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-row input,
+    .form-row button {
+        width: 100%;
+    }
+
+    .seccion-filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .seccion-filtros input {
+        width: 100% !important;
+    }
+
+    .selector-divisa {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .selector-divisa select {
+        width: 100%;
+    }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .task-acciones {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .auth-card {
+        padding: 28px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .topbar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .controles-paginacion {
+        gap: 10px;
+    }
+
+    .modal {
+        padding: 20px 16px;
+    }
+}

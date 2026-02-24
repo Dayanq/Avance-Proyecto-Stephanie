@@ -1,8 +1,12 @@
 // middlewares/error.middleware.js
-module.exports = (err, req, res, next) => {
-  console.error(err.stack);
+const errorHandler = (err, req, res, next) => {
+    console.error("❌ Error detectado:", err.stack);
 
-  res.status(err.status || 500).json({
-    message: err.message || 'Error interno del servidor'
-  });
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+        mensaje: err.message || "Error interno del servidor",
+        error: process.env.NODE_ENV === 'development' ? err : {} // Solo muestra detalles en desarrollo
+    });
 };
+
+module.exports = errorHandler;
