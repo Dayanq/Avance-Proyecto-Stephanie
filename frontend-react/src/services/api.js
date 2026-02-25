@@ -1,6 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
-// Helper para construir headers con token
-function authHeaders(token) {
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';function authHeaders(token) {
     return {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
