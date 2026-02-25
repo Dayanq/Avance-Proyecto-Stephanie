@@ -5,6 +5,12 @@ const jwt = require('jsonwebtoken');
 // Registrar nuevo usuario (siempre como 'user' por defecto)
 exports.register = async (req, res) => {
     const { nombre, email, password } = req.body;
+
+    // ✅ Validación: todos los campos son obligatorios
+    if (!nombre || !email || !password) {
+        return res.status(400).json({ mensaje: 'Todos los campos son obligatorios' });
+    }
+
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
@@ -38,7 +44,7 @@ exports.login = (req, res) => {
         const passwordCorrecto = await bcrypt.compare(password, usuario.password);
         if (!passwordCorrecto) return res.status(401).json({ mensaje: "Contraseña incorrecta" });
 
-        // ✅ Ahora el token lleva id Y role
+        // ✅ El token lleva id Y role
         const token = jwt.sign(
             { id: usuario.id, role: usuario.role },
             process.env.JWT_SECRET,

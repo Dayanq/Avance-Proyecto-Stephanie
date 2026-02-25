@@ -12,6 +12,7 @@ app.use(cors({
         'https://spirited-motivation-production.up.railway.app'
     ]
 }));
+
 app.use(express.json());
 
 // Servir Frontend
